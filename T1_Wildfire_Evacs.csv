@@ -1,11 +1,77 @@
 Local Authority,Location,Date Evacuation Initiated,Date Evacuation Lifted,Note,source_url,source_name,source_tier,source_timestamp
-RM of Kelsey,Cranberry Portage,31-May-25,14-June-25,Evacuation Lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T17:53:50.639394+00:00
-Big Island Lake,Bay Side/Creek Side,30-May-25,25-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T17:53:50.639546+00:00
-Big Island Lake,South End,30-May-25,25-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T17:53:50.639566+00:00
-Big Island Lake,North End and Big Island,30-May-25,25-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T17:53:50.639585+00:00
-Nopiming Provincial Park,Nopiming North,13-May-25,,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T17:53:50.639977+00:00
-Whiteshell Provincial Park,Mantario Trail Wilderness Area,15-May-25,,Closed,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T17:53:50.640027+00:00
-Atikaki Provincial Park (south portion),Bloodvein,09-July-25,13-August-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T17:53:50.640062+00:00
-Bakers Narrow Provincial Park,Bakers Narrow Campground,30-May-25,25-June-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T17:53:50.640098+00:00
-Nopiming Provincial Park,Nopiming South,13-May-25,18-June-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T17:53:50.640121+00:00
-Whiteshell Provincial Park,Caddy Lake Tunnels,15-May-25,27-June-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T17:53:50.640196+00:00
+Town of Lynn Lake,Town of Lynn Lake,05-July-25,,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.606254+00:00
+Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.606299+00:00
+Town of Leaf Rapids,Town of Leaf Rapids,08-July-25,22-Sept-25,Evacuation Lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.606359+00:00
+Town of Snow Lake,Town of Snow Lake,10-July-25,22-August-25,Evacuation Lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.606415+00:00
+City of Flin Flon,City of Flin Flon,28-May-25,25-June-25,Evacuation Lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.606469+00:00
+RM of Kelsey,Cranberry Portage,31-May-25,14-June-25,Evacuation Lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.606531+00:00
+Town of Snow Lake,Town of Snow Lake,07-June-25,14-June-25,Evacuation Lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.606585+00:00
+Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.606951+00:00
+Granville Lake,Granville Lake,11-July-25,23-Sept-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607004+00:00
+Wallace Lake Cottage Association,Wallace Lake Cottage Association,13-May-25,19-August,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607058+00:00
+Big Island Lake,Bay Side/Creek Side,30-May-25,25-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607119+00:00
+Big Island Lake,South End,30-May-25,25-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607180+00:00
+Big Island Lake,North End and Big Island,30-May-25,25-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607241+00:00
+Bissett,Bissett,30-May-25,17-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607294+00:00
+Cormorant,Cormorant,29-July-25,11-August-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607347+00:00
+Community of Sherridon,Community of Sherridon,25-May-25,14-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607400+00:00
+Herb Lake Landing,Herb Lake Landing,03-June-25,14-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607453+00:00
+Incorporated Community of Cross Lake,Incorporated Community of Cross Lake,25-May-25,16-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607506+00:00
+Island Lake (Stevenson Island),Island Lake (Stevenson Island),17-July-25,12-August-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607558+00:00
+Lake Athapapuskow Cottage Association,Lake Athapapuskow Cottage Association,30-May-25,25-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607611+00:00
+Payuk Lake,Payuk Lake,30-May-25,14-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607665+00:00
+Schist Lake,Schist Lake,30-May-25,25-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607717+00:00
+Twin Lake,Twin Lake,30-May-25,14-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607770+00:00
+Whitefish,Whitefish,30-May-25,25-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607823+00:00
+White Lake (Northwest Region),White Lake (Northwest Region),30-May-25,25-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.607875+00:00
+O-Pipon-Na-Piwin Cree Nation (South Indian Lake),O-Pipon-Na-Piwin Cree Nation (South Indian Lake),5-July-25,,Priority individuals,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608247+00:00
+Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608278+00:00
+Marcel Colomb First Nation (Black Sturgeon Falls),Marcel Colomb First Nation (Black Sturgeon Falls),5-July-25,17-Sept-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608331+00:00
+Mathias Colomb Cree Nation (Pukatawagan),Mathias Colomb Cree Nation (Pukatawagan),28-May-25,19-Sept-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608384+00:00
+Kischewaskahegan (York Landing/York Factory First Nation),Kischewaskahegan (York Landing/York Factory First Nation),2-June-25,12-June-25,Evacuation lifted (Priority individuals),https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608437+00:00
+Cormorant,Cormorant,29-July-25,11-August-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608490+00:00
+Kistiganwacheeng (Garden Hill Anisininew Nation),Kistiganwacheeng (Garden Hill Anisininew Nation),9-June-25,12-August-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608544+00:00
+Kistiganwacheeng (Garden Hill Anisininew Nation),Kistiganwacheeng (Garden Hill Anisininew Nation),4-June-25,19-June-25,Evacuation lifted (Priority individuals),https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608597+00:00
+Makadewaagamijiwanong (Black River First Nation),Makadewaagamijiwanong (Black River First Nation),10-June-25,25-June-25,Evacuation lifted (Priority individuals),https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608650+00:00
+Minithayinikam (St. Theresa Point),Minithayinikam (St. Theresa Point),12-July-25,12-August-25,Evacuation lifted (Priority individuals),https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608703+00:00
+Minithayinikam (St. Theresa Point Anisinew Nation),Minithayinikam (St. Theresa Point Anisinew Nation),4-June-25,15-June-25,Evacuation lifted (Priority individuals),https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608757+00:00
+Misipawistik Cree Nation Cree Nation (Grand Rapids),Misipawistik Cree Nation Cree Nation (Grand Rapids),3-June-25,15-June-25,Evacuation lifted (Priority individuals),https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608810+00:00
+Nisichawayasihk Cree Nation (Nelson House),Nisichawayasihk Cree Nation (Nelson House),8-July-25,13-August-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608863+00:00
+Pimicikamak Cree Nation (Cross Lake),Pimicikamak Cree Nation (Cross Lake),5-July-25,7-August-25,Evacuation lifted (Priority individuals),https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608916+00:00
+Tataskweyak Cree Nation (Split Lake),Tataskweyak Cree Nation (Split Lake),30-May-25,7-August-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.608973+00:00
+Red Sucker Anisininew Nation,Red Sucker Anisininew Nation,3-August-25,16-August-25,Evacutation lifted (Priority individuals),https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.609027+00:00
+Wasagamack Anisininew Nation,Wasagamack Anisininew Nation,12-July-25,7-August-25,Evacuation lifted (Priority individuals),https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.609080+00:00
+Wasagamack First Anisinew Nation,Wasagamack First Anisinew Nation,4-June-25,16-June-25,Evacuation lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.609132+00:00
+Nopiming Provincial Park,Nopiming North,13-May-25,,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.609662+00:00
+Tulabi Falls Campground,13-May-25,,Closed for the season,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.609713+00:00
+Black Lake Campground,13-May-25,,Closed for the season,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.609763+00:00
+Beresford Lake Campground,13-May-25,,Closed for the season,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.609813+00:00
+Shoe Lake Campground,13-May-25,,Closed for the season,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.609863+00:00
+Wekusko Falls Provincial Park,Wekusko Falls Provincial Park,10-July-25,,Closed,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.609913+00:00
+Whiteshell Provincial Park,Mantario Trail Wilderness Area,15-May-25,,Closed,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.609970+00:00
+Burge Lake,Burge Lake,N/A,,Closed,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610019+00:00
+Zed Lake,Zed Lake,N/A,,Closed,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610068+00:00
+Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,Evacuation Lifted,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610099+00:00
+Atikaki Provincial Park (south portion),Bloodvein,09-July-25,13-August-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610160+00:00
+Gammon River corridors,09-July-25,13-August-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610213+00:00
+Aikens Lake,09-July-25,13-August-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610271+00:00
+Bakers Narrow Provincial Park,Bakers Narrow Provincial Park,30-May-25,25-June-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610325+00:00
+Bakers Narrow Provincial Park,Bakers Narrow Campground,30-May-25,25-June-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610388+00:00
+Grass River Provincial Park,Grass River Provincial Park,03-June-25,16-June-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610488+00:00
+Nopiming Provincial Park,Nopiming South,13-May-25,18-June-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610550+00:00
+South Atikaki,13-May-25,16-August-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610604+00:00
+Wallace Lake,13-May-25,16-August-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610657+00:00
+Bird Lake Campground,13-May-25,10-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610713+00:00
+Manigotagan River Park,13-May-25,27-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610767+00:00
+Bird Lake Cottage Subdivision,13-May-25,18-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610820+00:00
+Booster Lake,13-May-25,18-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610873+00:00
+Flanders Lake,13-May-25,18-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610927+00:00
+Davidson Lake,13-May-25,18-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.610981+00:00
+Wekusko Falls Provincial Park,Wekusko Falls Provincial Park,03-June-25,17-June-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.611034+00:00
+Whiteshell Provincial Park,Caddy Lake Tunnels,15-May-25,27-June-25,Reopened,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.611095+00:00
+Campgrounds at Big Whiteshell Lake,15-May-25,20-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.611148+00:00
+Big Whiteshell Lake,15-May-25,11-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.611202+00:00
+Crowduck Lake,15-May-25,11-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.611255+00:00
+Nora Lake,15-May-25,11-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.611307+00:00
+Florence lakes,15-May-25,11-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.611360+00:00
+Ophir Siding,15-May-25,11-June-25,Reopened,,https://www.manitoba.ca/wildfire/evacuations.html,Manitoba Evacs,1,2025-12-13T20:22:12.611413+00:00
