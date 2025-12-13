@@ -78,16 +78,44 @@ def scrape_wildfire_data(urls: Dict[str, str]) -> pd.DataFrame:
                 if "Local Authority" not in headers or "Date Evacuation Initiated" not in headers:
                     continue
 
+                active_rowspans = {}
+
                 for tr in rows[1:]:
                     cols = tr.find_all("td")
                     if not cols:
                         continue
 
                     values = []
+                    col_idx = 0
+
+                    # fill from previous rowspans
+                    while col_idx in active_rowspans:
+                        values.append(active_rowspans[col_idx]["value"])
+                        active_rowspans[col_idx]["rows_left"] -= 1
+                        if active_rowspans[col_idx]["rows_left"] == 0:
+                            del active_rowspans[col_idx]
+                        col_idx += 1
+
                     for td in cols:
                         text = td.get_text(strip=True)
-                        span = int(td.get("colspan", 1))
-                        values.extend([text] * span)
+                        colspan = int(td.get("colspan", 1))
+                        rowspan = int(td.get("rowspan", 1))
+
+                        for _ in range(colspan):
+                            values.append(text)
+
+                            if rowspan > 1:
+                                active_rowspans[col_idx] = {
+                                    "value": text,
+                                    "rows_left": rowspan - 1
+                                }
+                            col_idx += 1
+
+                    # pad if short
+                    if len(values) < len(headers):
+                        values += [""] * (len(headers) - len(values))
+
+                    values = values[:len(headers)]
 
                     # skip pure section rows
                     if len(values) == 1 and values[0].lower() in {
@@ -97,12 +125,6 @@ def scrape_wildfire_data(urls: Dict[str, str]) -> pd.DataFrame:
                     }:
                         continue
 
-                    # pad if still short
-                    if len(values) < len(headers):
-                        values += [""] * (len(headers) - len(values))
-
-                    values = values[:len(headers)]
-
                     row = dict(zip(headers, values))
                     row.update({
                         "source_url": url,
@@ -111,6 +133,7 @@ def scrape_wildfire_data(urls: Dict[str, str]) -> pd.DataFrame:
                         "source_timestamp": datetime.now(UTC).isoformat(),
                     })
                     records.append(row)
+
 
             print(f"Scraped {name} successfully.")
         except requests.RequestException as e:
@@ -139,7 +162,12 @@ if __name__ == "__main__":
 
     # structured wildfire evacuation info
     wildfire_df = scrape_wildfire_data(T1_URLS)
-    
+
+    # propagate Local Authority down through blank rows
+    if "Local Authority" in wildfire_df.columns:
+        wildfire_df["Local Authority"] = wildfire_df["Local Authority"].replace("", pd.NA)
+        wildfire_df["Local Authority"] = wildfire_df["Local Authority"].ffill()
+
     
     # print out in terminal and export
     print(wildfire_df.head())
