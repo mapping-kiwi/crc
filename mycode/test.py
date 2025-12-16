@@ -1,1 +1,0 @@
-# test github pushes with reconfigured remotes
