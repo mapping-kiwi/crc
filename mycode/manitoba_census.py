@@ -1,3 +1,6 @@
+# manitoba_census.py
+
+# READ ZIPPED CSV CENSUS DATA
 import pandas as pd
 
 # Read the zipped CSV file directly into a pandas DataFrame

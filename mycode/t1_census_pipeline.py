@@ -1,122 +1,241 @@
-# add at top with other imports
-import json
+# t1_census_pipeline.py
+
+"""
+CENSUS ENRICHMENT PIPELINE FOR TIER 1 WILDFIRE EVACUATION DATA
+This python code matches Local Authority names from wildfire evacuation data
+to Census DGUIDs, and fetches census demographic data for those areas.
+
+"""
+
+# Python imports
+import json # Read/write JSON data (used for StatCan API responses)
 from typing import Tuple, Dict, Any
 import pandas as pd
 import requests
+from thefuzz import process # Fuzzy string matching for name matching (ie "Garden Hill" -> "Garden Hill First Nation")
 
-CENSUS_PROFILE_API_BASE = (
-    "https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/"
-    "CPR_2021_CSD"  # census subdivision-level profile dataflow
-)
-# dimension order for this dataflow: GEO, SEX, CHAR, STAT [web:7]
-# GEO: DGUID (e.g., 2021A00054621064)
-# SEX: 1 = Total - Gender [web:7]
-# STAT: 1 = Counts [web:7]
-
-# characteristic codes (CHAR) you care about
-CHAR_POP_2021 = "1"      # Population, 2021 [web:7]
-CHAR_INDIG_TOTAL = "1910"  # Total - Indigenous identity for population in private households [web:4][web:27]
-
-
-def fetch_census_values_for_dguid(dguid: str) -> tuple[int | None, int | None]:
+def normalize_name(s: str) -> str:
+    
     """
-    Return (total_population_2021, total_indigenous_identity) for a given Census DGUID,
-    using the 2021 Census Profile SDMX JSON API. Returns (None, None) if lookup fails. [web:7]
+    Clean place names for better matching.
+    Remove "Town of", "City of", "RM of", etc., lowercase, trim whitespace.
     """
-    # SDMX key: GEO.SEX.CHAR.STAT
-    # Use two observations: one for POP_2021, one for INDIG_TOTAL [web:7]
-    char_list = f"{CHAR_POP_2021}+{CHAR_INDIG_TOTAL}"
-    key = f"{dguid}.1.{char_list}.1"
+    
+    if not isinstance(s, str): # check if input is actually a string
+        return "" # empty if not a string
+    
+    s = s.lower().strip() # convert to lowercase, remove leading/trailing whitespace
+    
+    # common prefixes to strip
+    for pref in ["town of ", "city of ", "rm of ", "r.m. of ", "rural municipality of "]:
+        if s.startswith(pref):
+            s = s[len(pref):]
+            
+    return s.replace("  ", " ") # double space handling
 
-    params = {
-        "contentType": "json",   # get SDMX-JSON [web:7]
-        "detail": "dataonly"
-    }
+def build_census_lookup(census_path: str) -> pd.DataFrame:
+    
+    """
+    Reads Stats Canada 2021 Census zipped CSV file and builds a demographic lookup DataFrame.
+    Returns a DataFrame with columns:
+        - DGUID
+        - ALT_GEO_CODE
+        - GEO_NAME
+        - POP_2021
+        - INDIG_POP_2021
+        - INDIG_DENOM_2021
+        - INDIG_SHARE_2021
+        - GEO_NAME_NORM (normalized name for matching)
+        
+        Args:
+            census_path (str): Path to the zipped CSV census data file.
+        Returns:
+            pd.DataFrame: DataFrame with demographic data for census subdivisions.
+    """
+    
+    # Read StatsCan 2021 Census zipped CSV
+    print(f"Loading census data from {census_path}...")
+    census = pd.read_csv(census_path, compression="zip")
 
-    url = f"{CENSUS_PROFILE_API_BASE}/{key}"
-    try:
-        r = requests.get(url, params=params, timeout=10)
-        r.raise_for_status()
-        data = r.json()
-    except requests.RequestException:
-        print(f"Failed Census API call for {dguid}")
-        return None, None
-    except json.JSONDecodeError:
-        print(f"Bad JSON from Census API for {dguid}")
-        return None, None
+    # Filter to census subdivision level and 2021 population
+    csd = census[census["GEO_LEVEL"] == "Census subdivision"].copy()
+    
+    # Get total population for each CSD
+    census_pop = csd[csd["CHARACTERISTIC_NAME"] == "Population, 2021"].copy()
+    census_pop = census_pop[["DGUID", "ALT_GEO_CODE", "GEO_NAME", "C1_COUNT_TOTAL"]]
+    census_pop = census_pop.rename(columns={"C1_COUNT_TOTAL": "POP_2021"})
+    
+    census_pop["GEO_NAME_NORM"] = census_pop["GEO_NAME"].apply(normalize_name)
 
-    # SDMX-JSON: observations are in dataSets[0]["observations"], with keys like "0:0:0:0" [web:7]
-    obs = data.get("dataSets", [{}])[0].get("observations", {})
-    if not obs:
-        return None, None
+    # Indigenous population totals
+    ind_tot = csd[csd["CHARACTERISTIC_NAME"] == "Indigenous identity"][
+        ["DGUID", "C1_COUNT_TOTAL"]
+    ].rename(columns={"C1_COUNT_TOTAL": "INDIG_POP_2021"})
 
-    # Decode dimensions so we can tell which obs is which CHAR [web:7]
-    dims = data.get("structure", {}).get("dimensions", {}).get("observation", [])
-    char_dim_idx = next(
-        (i for i, d in enumerate(dims) if d.get("id") == "CHAR"), None
+    # Get total population denominator for Indigenous identity
+    denom = csd[
+        csd["CHARACTERISTIC_NAME"]
+        == "Total population in private households by Indigenous identity"
+    ][["DGUID", "C1_COUNT_TOTAL"]].rename(
+        columns={"C1_COUNT_TOTAL": "INDIG_DENOM_2021"}
     )
-    if char_dim_idx is None:
-        return None, None
+    # Merge all together
+    demo = (
+        census_pop
+        .merge(ind_tot, on="DGUID", how="left")
+        .merge(denom, on="DGUID", how="left")
+    )
+    demo["INDIG_SHARE_2021"] = (
+        demo["INDIG_POP_2021"] / demo["INDIG_DENOM_2021"]
+    )
 
-    pop_val = None
-    indig_val = None
+    return demo
 
-    for key_str, val_arr in obs.items():
-        # key_str is colon-separated index string (e.g., "0:0:0:0") [web:7]
-        idx = key_str.split(":")
-        if char_dim_idx >= len(idx):
-            continue
-        char_pos = int(idx[char_dim_idx])
 
-        char_codes = dims[char_dim_idx]["values"]
-        if char_pos >= len(char_codes):
-            continue
-
-        char_code = char_codes[char_pos]["id"]
-        value = val_arr[0]  # first element is the numeric value [web:7]
-
-        if char_code == CHAR_POP_2021:
-            pop_val = value
-        elif char_code == CHAR_INDIG_TOTAL:
-            indig_val = value
-
-    return pop_val, indig_val
-
-def enrich_with_census(
-    wildfire_df: pd.DataFrame,
-    local_to_dguid: Dict[str, str],
+def auto_match_local_authorities(
+    wildfire_df: pd.DataFrame, 
+    census_demo: pd.DataFrame, 
+    score_cutoff: int = 80
 ) -> pd.DataFrame:
     """
-    Add DGUID, Census_Pop_2021, Census_Indig_Total columns to wildfire_df.
+    Automatically match Local Authority names 
+    from wildfire_df to Census communities using 
+    fuzzy matching
+    
+        Args:
+        wildfire_df: Evacuation data with "Local Authority" column
+        census_demo: Census lookup from build_census_lookup()
+        score_cutoff: Minimum match confidence (0-100)
+    
+    Returns:
+        DataFrame showing matches + census data
     """
-    # Map Local Authority → DGUID
+    
+    # Get unique LAs
+    authorities = pd.Series(
+        wildfire_df["Local Authority"].unique(), name="Local Authority"
+    ).to_frame()
+    authorities["LA_NORM"] = authorities["Local Authority"].apply(normalize_name)
+
+    # Prep census names for fuzzy matching
+    choices = census_demo["GEO_NAME_NORM"].tolist()
+
+    matches = []
+    for _, row in authorities.iterrows():
+        la = row["Local Authority"]
+        key = row["LA_NORM"]
+        if not key:
+            matches.append({
+                "Local Authority": la,
+                "match_score": 0,
+                "DGUID": None,
+            })
+            continue
+
+        match, score = process.extractOne(key, choices)
+        if score < score_cutoff:
+            matches.append({
+                "Local Authority": la,
+                "match_score": score,
+                "DGUID": None,
+            })
+            continue
+
+        # find census row for best match
+        c_row = census_demo[census_demo["GEO_NAME_NORM"] == match].iloc[0]
+        matches.append({
+            "Local Authority": la,
+            "match_score": score,
+            "DGUID": c_row["DGUID"],
+        })
+
+    mapping_auto = pd.DataFrame(matches)
+    result = mapping_auto.merge(census_demo, on="DGUID", how="left")
+    print(f"Auto-matched {len(result)} Local Authorities with cutoff {score_cutoff}")
+    return result
+
+
+# MAIN ENRICHMENT FUNCTION
+def enrich_with_census(
+    wildfire_df: pd.DataFrame,
+    local_to_dguid: Dict[str, str] | None = None,
+) -> pd.DataFrame:
+    
+    """
+    Add DGUID, Census_Pop_2021, Census_Indig_Total columns to wildfire_df.
+    
+    Load census data, authomatically match Local Authority names to DGUIDs,
+    and fetch census demographic data.
+    
+        Args:
+            wildfire_df (pd.DataFrame): DataFrame with "Local Authority" column.
+            local_to_dguid (Dict[str, str], optional):  
+                Predefined mapping of Local Authority names to DGUIDs.
+                If None, uses load_local_to_dguid_mapping().
+        Returns:
+            pd.DataFrame: Enriched DataFrame with census demographic columns.
+
+    """
+
+    wildfire_df = wildfire_df.copy() 
+        
+        # Load census lookup table (offline)
+    print("1. Loading census data...")
+    census_demo = build_census_lookup(census_path)
+        
+        # Auto-match Local Authorities to census geographies
+    print("2. Matching Local Authorities...")
+    mapping_df = auto_match_local_authorities(wildfire_df, census_demo, score_cutoff)
+        
+        # Create lookup dict for fast matching
+    print("3. Creating lookup dictionary...")
+    matched_mapping = {
+        normalize_name(row["Local Authority"]): row["DGUID"]
+        for _, row in mapping_df.iterrows() if pd.notna(row["DGUID"])
+    }
+        
+        # Clean and match Local Authority column in main dataframe
     if "Local Authority" in wildfire_df.columns:
-        wildfire_df = wildfire_df.copy()
+            # Forward-fill blank Local Authority values (common in government tables)
         wildfire_df["Local Authority"] = (
             wildfire_df["Local Authority"].replace("", pd.NA).ffill()
         )
-        wildfire_df["DGUID"] = wildfire_df["Local Authority"].map(local_to_dguid)
+            
+            # Normalize and map to DGUID
+        wildfire_df["LA_NORM"] = wildfire_df["Local Authority"].apply(normalize_name)
+        wildfire_df["DGUID"] = wildfire_df["LA_NORM"].map(matched_mapping)
+            
+            # Add census population columns (direct lookup from census_demo)
+        def add_census_row(dguid):
+            if pd.isna(dguid):
+                return pd.Series({
+                        "Census_Pop_2021": None, 
+                        "Census_Indig_Total": None,
+                        "Census_Indig_Share": None
+                })
+            c_row = census_demo[census_demo["DGUID"] == dguid].iloc[0] if len(census_demo[census_demo["DGUID"] == dguid]) > 0 else None
+            if c_row is None:
+                 return pd.Series({
+                        "Census_Pop_2021": None, 
+                        "Census_Indig_Total": None,
+                        "Census_Indig_Share": None
+                })
+            return pd.Series({
+                    "Census_Pop_2021": c_row["POP_2021"],
+                    "Census_Indig_Total": c_row["INDIG_POP_2021"],
+                    "Census_Indig_Share": c_row["INDIG_SHARE_2021"]
+                })
+            
+        print("4. Adding census columns...")
+        census_cols = wildfire_df["DGUID"].apply(add_census_row)
+        wildfire_df = pd.concat([wildfire_df, census_cols], axis=1)
     else:
-        wildfire_df["DGUID"] = pd.NA
-
-    dguid_cache: Dict[str, Tuple[int | None, int | None]] = {}
-
-    def _lookup(row: pd.Series) -> pd.Series:
-        dguid = row.get("DGUID")
-        if pd.isna(dguid):
-            return pd.Series(
-                {"Census_Pop_2021": None, "Census_Indig_Total": None}
-            )
-
-        dguid = str(dguid)
-        if dguid not in dguid_cache:
-            dguid_cache[dguid] = fetch_census_values_for_dguid(dguid)
-
-        pop_2021, indig_total = dguid_cache[dguid]
-        return pd.Series(
-            {"Census_Pop_2021": pop_2021, "Census_Indig_Total": indig_total}
-        )
-
-    census_cols = wildfire_df.apply(_lookup, axis=1)
-    wildfire_df = pd.concat([wildfire_df, census_cols], axis=1)
+            # No Local Authority column - add empty census columns
+        for col in ["DGUID", "Census_Pop_2021", "Census_Indig_Total", "Census_Indig_Share"]:
+            wildfire_df[col] = pd.NA
+        
+    matched_count = wildfire_df['DGUID'].notna().sum()
+    print(f"✓ Enriched {matched_count} / {len(wildfire_df)} records with census data")
+    print(f"  Download link: https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/dt-td/Rp-eng.cfm?LANG=E&TABID=0")
+        
     return wildfire_df
