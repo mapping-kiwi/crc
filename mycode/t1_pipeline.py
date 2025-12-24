@@ -215,7 +215,7 @@ if __name__ == "__main__":
     print(f"\nTotal records: {len(results)}")
 
     # Exporting data to CSV
-    results.to_csv("T1_Data.csv", index=False)
+    results.to_csv("csv files/T1_Data.csv", index=False)
     with open("T1_raw.txt", "w", encoding="utf-8") as f:
         f.write(raw_text)
 
@@ -231,6 +231,6 @@ if __name__ == "__main__":
     # Print out in terminal and export
     print(wildfire_df.head())
     print(f"\nWildfire evac records: {len(wildfire_df)}")
-    wildfire_df.to_csv("T1_Wildfire_Evacs.csv", index=False)
+    wildfire_df.to_csv("csv files/T1_Wildfire_Evacs.csv", index=False)
 
     

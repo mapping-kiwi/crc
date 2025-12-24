@@ -5,8 +5,8 @@
 import pandas as pd
 from thefuzz import process
 
-wildfire = pd.read_csv("T1_Wildfire_Evacs.csv")
-census = pd.read_csv("Manitoba_2021_Census.csv")
+wildfire = pd.read_csv("csv files/T1_Wildfire_Evacs.csv")
+census = pd.read_csv("csv files/Manitoba_2021_Census.csv")
 
 # Filter census to 2021 population rows at CSD level
 census_pop = census[
@@ -77,7 +77,7 @@ mapping_auto = pd.DataFrame(matches)
 print(mapping_auto.sort_values("match_score").head(10))
 
 # Optionally fix specific rows and save for reuse
-mapping_auto.to_csv("local_to_dguid_mapping_auto.csv", index=False)
+mapping_auto.to_csv("csv files/local_to_dguid_mapping_auto.csv", index=False)
 
 # Join population into wildfire table
 wildfire_with_pop = wildfire.merge(
@@ -86,4 +86,4 @@ wildfire_with_pop = wildfire.merge(
     how="left"
 )
 
-wildfire_with_pop.to_csv("T1_Wildfire_Evacs_with_pop.csv", index=False)
+wildfire_with_pop.to_csv("csv files/T1_Wildfire_Evacs_with_pop.csv", index=False)

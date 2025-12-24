@@ -36,7 +36,7 @@ def normalize_name(s: str) -> str:
 def build_census_lookup(census_path: str) -> pd.DataFrame:
     
     """
-    Reads Stats Canada 2021 Census zipped CSV file and builds a demographic lookup DataFrame.
+    Reads Stats Canada 2021 Census CSV file and builds a demographic lookup DataFrame.
     Returns a DataFrame with columns:
         - DGUID
         - ALT_GEO_CODE
@@ -48,14 +48,14 @@ def build_census_lookup(census_path: str) -> pd.DataFrame:
         - GEO_NAME_NORM (normalized name for matching)
         
         Args:
-            census_path (str): Path to the zipped CSV census data file.
+            census_path (str): Path to the CSV census data file.
         Returns:
             pd.DataFrame: DataFrame with demographic data for census subdivisions.
     """
     
-    # Read StatsCan 2021 Census zipped CSV
+    # Read StatsCan 2021 Census CSV
     print(f"Loading census data from {census_path}...")
-    census = pd.read_csv(census_path, compression="zip")
+    census = pd.read_csv(census_path)
 
     # Filter to census subdivision level and 2021 population
     csd = census[census["GEO_LEVEL"] == "Census subdivision"].copy()
@@ -158,6 +158,8 @@ def auto_match_local_authorities(
 # MAIN ENRICHMENT FUNCTION
 def enrich_with_census(
     wildfire_df: pd.DataFrame,
+    census_path: str,
+    score_cutoff: int = 80, # minimum fuzzy match score
     local_to_dguid: Dict[str, str] | None = None,
 ) -> pd.DataFrame:
     

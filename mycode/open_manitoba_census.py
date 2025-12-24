@@ -1,10 +1,10 @@
 # manitoba_census.py
 
-# READ ZIPPED CSV CENSUS DATA
+# READ CSV CENSUS DATA
 import pandas as pd
 
-# Read the zipped CSV file directly into a pandas DataFrame
-df = pd.read_csv('98-401-X2021022_eng_CSV.zip', compression='zip')
+# Read CSV file directly into a pandas DataFrame
+df = pd.read_csv('csv files/Manitoba_2021_Census.csv')
 
 # Display the first few rows of the data
 print(df.head())
