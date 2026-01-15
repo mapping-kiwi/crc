@@ -22,6 +22,14 @@ import requests
 import pandas as pd
 
 
+# READ CSV CENSUS DATA
+# Read CSV file directly into a pandas DataFrame
+df = pd.read_csv('csv files/Manitoba_2021_Census.csv')
+
+# Display the first few rows of the data
+print(df.head())
+
+
 # Dictionary mapping source names to their government evacuation page URLs
 # Keys = display name, Values = URLs to be scraped
 T1_URLS: Dict[str, str] = {
