@@ -1,0 +1,32 @@
+
+============================================================
+QA SIGNALS - PIPELINE QUALITY METRICS
+============================================================
+
+[SCRAPING METRICS]
+  Records scraped: 72
+  Non-geographic rows filtered: 4
+
+[DATA QUALITY]
+  Unique authorities: 43
+  Records with valid dates: 70
+  Records without dates: 2
+
+[ENRICHMENT METRICS]
+  Forward-filled authorities: 0
+  Unique event IDs generated: 46
+  Duplicate event IDs: 26
+
+[COVERAGE RATES]
+  Date coverage: 97.2% (70/72)
+============================================================
+
+[RAW SIGNAL DATA]
+duplicate_event_ids: 26
+forward_filled_authorities: 0
+non_geographic_rows_filtered: 4
+records_scraped: 72
+records_with_dates: 70
+records_without_dates: 2
+unique_authorities: 43
+unique_event_ids: 46
