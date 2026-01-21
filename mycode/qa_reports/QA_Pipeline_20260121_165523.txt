@@ -1,0 +1,64 @@
+============================================================
+WILDFIRE EVACUATION PIPELINE - SUMMARY REPORT
+============================================================
+Run Timestamp: 20260121_165523
+Duration: 1.56 seconds
+Match Cutoff: 80
+
+[EXTRACT STAGE]
+  Records scraped: 72
+  Non-geographic rows filtered: 4
+
+[TRANSFORM STAGE]
+  Unique authorities: 0
+  Records with dates: 0
+  Forward-filled authorities: 0
+  Match rate: 2.3%
+  Enrichment rate: 1.4%
+
+[LOAD STAGE]
+  Final enriched records: 72
+  Records with census data: 1
+  Total population affected: 4,665
+  Indigenous population affected: 0
+
+[DATA QUALITY]
+  ⚠️ 42 unmatched authorities
+     → Review: csv files/unmatched_authorities.csv
+
+[KEY OUTPUT FILES]
+  Main Output: csv files/T1_Wildfire_Evacs_Enriched.csv
+  Versioned: csv files/T1_Wildfire_Evacs_Enriched_20260121_165523.csv
+  QA Report: qa_reports/QA_Pipeline_20260121_165523.txt
+
+============================================================
+PIPELINE COMPLETE
+============================================================
+
+
+============================================================
+EXPORT SUMMARY
+============================================================
+Run Timestamp: 20260121_165523
+Total Exports: 9
+
+[EXPORTED FILES]
+  1. Scraped wildfire (latest) (72 records)
+     → csv files/T1_Wildfire_Evacs.csv
+  2. Scraped wildfire (versioned) (72 records)
+     → csv files/T1_Wildfire_Evacs_20260121_165523.csv
+  3. Cleaned wildfire data (72 records)
+     → csv files/T1_Wildfire_Evacs_cleaned.csv
+  4. Cleaned census lookup (10 records)
+     → csv files/census_lookup_cleaned.csv
+  5. Enriched wildfire (latest) (72 records)
+     → csv files/T1_Wildfire_Evacs_Enriched.csv
+  6. Enriched wildfire (versioned) (72 records)
+     → csv files/T1_Wildfire_Evacs_Enriched_20260121_165523.csv
+  7. QA Report (scraping)
+     → qa_reports/QA_Scraping_20260121_165523.txt
+  8. QA Report (matching)
+     → qa_reports/QA_Matching_20260121_165523.txt
+  9. QA Report (pipeline)
+     → qa_reports/QA_Pipeline_20260121_165523.txt
+============================================================
