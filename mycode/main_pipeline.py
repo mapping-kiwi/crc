@@ -1,6 +1,6 @@
 # main_pipeline.py
 
-from t1_pipeline import scrape_wildfire_data, T1_URLS
+from t1_manitoba.py import scrape_wildfire_data, T1_URLS
 from t1_census_pipeline import (
     build_census_lookup,
     auto_match_local_authorities,
