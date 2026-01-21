@@ -1,18 +1,6 @@
-# Python cache
 __pycache__/
 *.pyc
 *.pyo
-*.pyd
-.Python
-
-# Editor backup files
 *.save
 *~
-
-# OS files
 .DS_Store
-Thumbs.db
-
-# Project specific
-raw_html/
-raw_text/
