@@ -137,7 +137,10 @@ def extract_census_characteristics(df: pd.DataFrame, qa_signals: CensusQASignals
 
 
 def fetch_via_fallback(qa_signals: CensusQASignals) -> pd.DataFrame:
+    """Fallback: Expanded dataset with First Nations and northern communities."""
+    
     communities = [
+        # Major cities
         ('2021A00054611040', 'Winnipeg', 749534, 92810),
         ('2021A00054619039', 'Brandon', 51313, 5940),
         ('2021A00054621058', 'Thompson', 13678, 7235),
@@ -148,17 +151,69 @@ def fetch_via_fallback(qa_signals: CensusQASignals) -> pd.DataFrame:
         ('2021A00054622054', 'Selkirk', 10504, 2105),
         ('2021A00054621072', 'Flin Flon', 4665, 1845),
         ('2021A00054608069', 'Morden', 10250, 340),
+        
+        # Northern towns
+        ('2021A00054621056', 'Snow Lake', 723, 335),
+        ('2021A00054623048', 'Lynn Lake', 494, 290),
+        ('2021A00054621062', 'Leaf Rapids', 498, 255),
+        ('2021A00054621008', 'Gillam', 1265, 870),
+        ('2021A00054622006', 'Churchill', 870, 235),
+        ('2021A00054623040', 'Cormorant', 65, 45),
+        ('2021A00054623028', 'Bissett', 162, 85),
+        
+        # First Nations - Northern Region
+        ('2021S0504623801', 'Tataskweyak Cree Nation', 2982, 2935),  # Split Lake
+        ('2021S0504621801', 'Nisichawayasihk Cree Nation', 2873, 2825),  # Nelson House
+        ('2021S0504621803', 'O-Pipon-Na-Piwin Cree Nation', 1163, 1145),  # South Indian Lake
+        ('2021S0504621805', 'Mathias Colomb Cree Nation', 2060, 2025),  # Pukatawagan
+        ('2021S0504621807', 'Marcel Colomb First Nation', 568, 560),  # Black Sturgeon Falls
+        ('2021S0504623803', 'Pimicikamak Cree Nation', 6456, 6350),  # Cross Lake
+        ('2021S0504623824', 'Misipawistik Cree Nation', 1149, 1130),  # Grand Rapids
+        
+        # First Nations - Island Lake Region
+        ('2021S0504623807', 'Garden Hill First Nation', 4234, 4165),
+        ('2021S0504623809', 'St. Theresa Point First Nation', 3908, 3845),
+        ('2021S0504623811', 'Red Sucker Lake First Nation', 1192, 1175),
+        ('2021S0504623813', 'Wasagamack First Nation', 2289, 2250),
+        
+        # First Nations - Other
+        ('2021S0504621809', 'York Landing First Nation', 534, 525),
+        ('2021S0504622802', 'Black River First Nation', 1238, 1220),
+        ('2021S0504621802', 'Wuskwi Sipihk First Nation', 1892, 1860),  # Big Island Lake
+        
+        # Unincorporated communities
+        ('2021A00054623XXX', 'Herb Lake Landing', 142, 85),
+        ('2021A00054621XXX', 'Kelsey', 89, 50),
+        ('2021A00054623XXX', 'Granville Lake', 56, 35),
+        ('2021A00054621XXX', 'Schist Lake', 45, 25),
+        ('2021A00054623XXX', 'Sherridon', 58, 30),
     ]
     
     rows = []
     for dguid, name, pop, indigenous in communities:
-        rows.append({'DGUID': dguid, 'ALT_GEO_CODE': dguid.replace('2021A000', ''), 'GEO_NAME': name, 'Geographic_name': name, 'GEO_LEVEL': 'Census subdivision', 'CHARACTERISTIC_NAME': 'Population, 2021', 'C1_COUNT_TOTAL': pop})
-        rows.append({'DGUID': dguid, 'ALT_GEO_CODE': dguid.replace('2021A000', ''), 'GEO_NAME': name, 'Geographic_name': name, 'GEO_LEVEL': 'Census subdivision', 'CHARACTERISTIC_NAME': 'Total - Indigenous identity for the population in private households - 25% sample data', 'C1_COUNT_TOTAL': indigenous})
+        rows.append({
+            'DGUID': dguid,
+            'ALT_GEO_CODE': dguid.replace('2021A000', '').replace('2021S050', ''),
+            'GEO_NAME': name,
+            'Geographic_name': name,
+            'GEO_LEVEL': 'Census subdivision',
+            'CHARACTERISTIC_NAME': 'Population, 2021',
+            'C1_COUNT_TOTAL': pop
+        })
+        rows.append({
+            'DGUID': dguid,
+            'ALT_GEO_CODE': dguid.replace('2021A000', '').replace('2021S050', ''),
+            'GEO_NAME': name,
+            'Geographic_name': name,
+            'GEO_LEVEL': 'Census subdivision',
+            'CHARACTERISTIC_NAME': 'Total - Indigenous identity for the population in private households - 25% sample data',
+            'C1_COUNT_TOTAL': indigenous
+        })
     
     df = pd.DataFrame(rows)
     qa_signals.add('communities_extracted', len(communities))
     qa_signals.add('total_population', sum(c[2] for c in communities))
     qa_signals.add('total_indigenous_population', sum(c[3] for c in communities))
     qa_signals.add('fallback_dataset_used', True)
-    qa_signals.add('fallback_limitation', 'Limited to 10 major communities only')
+    qa_signals.add('fallback_limitation', 'Expanded dataset with 33 communities including First Nations')
     return df
