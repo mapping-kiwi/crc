@@ -1,6 +1,6 @@
-# Manitoba Wildfire Evacuation Data Pipeline
+# Wildfire Evacuation Data Pipeline
 
-ETL pipeline for scraping, cleaning, and enriching Manitoba wildfire evacuation data with census demographics.
+ETL pipeline for scraping, cleaning, and enriching wildfire evacuation data with census demographics. This pipeline currently scrapes Tier 1 government data from Manitoba. 
 
 ## Features
 - Scrapes evacuation data from Manitoba government sources
@@ -55,7 +55,7 @@ The pipeline generates:
 - `qa_reports/QA_Pipeline_[timestamp].txt` - Quality assurance report
 - `csv files/unmatched_authorities.csv` - Authorities requiring manual review
 
-## Google Colab
+## Google Colab (or environments of similar structure)
 
 To run in Google Colab:
 ```python
