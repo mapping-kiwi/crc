@@ -12,31 +12,28 @@ Ensures consistent file organization across the entire ETL pipeline.
 import os
 from datetime import datetime, UTC
 from typing import Optional
+from pathlib import Path
 
 
 class IOPaths:
     """Manage all file paths and directories for the ETL pipeline."""
     
-    def __init__(self, run_timestamp: Optional[str] = None):
-        """
-        Initialize IO paths with optional custom timestamp.
+    def __init__(self):
+        """Initialize all file paths with timestamp."""
+        self.run_timestamp = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
         
-        Args:
-            run_timestamp (str, optional): Custom timestamp string. 
-                If None, generates current timestamp.
-        """
-        self.run_timestamp = run_timestamp or datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
+        # Base directories - move data outside mycode
+        self.base_dir = Path(__file__).parent.parent  # Go up to 'crc' directory
+        self.csv_dir = self.base_dir / "csv files"
+        self.qa_dir = self.base_dir / "qa_reports"
+        self.raw_html_dir = self.base_dir / "raw_html"
+        self.raw_text_dir = self.base_dir / "raw_text"
+        self.archive_dir = self.base_dir / "archive"
         
-        # Base directories
-        self.base_dir = os.getcwd()
-        self.csv_dir = "csv files"
-        self.raw_html_dir = "raw_html"
-        self.raw_text_dir = "raw_text"
-        self.qa_reports_dir = "qa_reports"
-        self.archive_dir = "archive"
-        
-        # Ensure all directories exist
-        self._create_directories()
+        # Create directories if they don't exist
+        for directory in [self.csv_dir, self.qa_dir, self.raw_html_dir, 
+                        self.raw_text_dir, self.archive_dir]:
+            directory.mkdir(parents=True, exist_ok=True)
     
     def _create_directories(self):
         """Create all required output directories."""

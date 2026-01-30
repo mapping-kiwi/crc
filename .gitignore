@@ -1,6 +1,18 @@
+# Mac
+.DS_Store
+
+# Python
 __pycache__/
 *.pyc
-*.pyo
-*.save
-*~
-.DS_Store
+
+# Data outputs (ignore contents, keep folders)
+csv files/*
+qa_reports/*
+raw_html/*
+raw_text/*
+
+# But allow gitkeep
+!csv files/.gitkeep
+!qa_reports/.gitkeep
+!raw_html/.gitkeep
+!raw_text/.gitkeep
