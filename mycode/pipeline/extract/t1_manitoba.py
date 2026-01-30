@@ -34,9 +34,13 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 import os
+from io_paths import IOPaths
 
 
 # CONFIGURATION AND CONSTANTS
+
+# Initialize paths for raw file storage
+paths = IOPaths()
 # Dictionary mapping source names to their government evacuation page URLs
 T1_URLS: Dict[str, str] = {
     "Manitoba Evacs": "https://www.manitoba.ca/wildfire/evacuations.html"
@@ -191,11 +195,15 @@ def scrape_tier1_sources(urls: Dict[str, str]) -> Tuple[pd.DataFrame, str]:
         - source_tier
         - source_timestamp
     """
+    
+    from io_paths import IOPaths
+    paths = IOPaths()
+    
     rows: List[Dict[str, Any]] = []
     all_raw_text: List[str] = []
     
     timestamp = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
-
+    
     for name, url in urls.items():
         try:
             print(f"Fetching {name} from {url}...")
@@ -254,6 +262,10 @@ def scrape_wildfire_data(urls: Dict[str, str], qa: QASignals) -> pd.DataFrame:
     Returns:
         pd.DataFrame: DataFrame with structured wildfire evacuation data.
     """
+    
+    from io_paths import IOPaths
+    paths = IOPaths()
+    
     records: List[Dict[str, Any]] = []
     tables_found = 0
     tables_matched = 0

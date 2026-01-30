@@ -21,17 +21,15 @@ class IOPaths:
         """Initialize all file paths with timestamp."""
         self.run_timestamp = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
         
-        # Base directories - move data outside mycode
+        # Base directories - relative to io_paths.py location
         self.base_dir = Path(__file__).parent.parent  # Go up to 'crc' directory
         self.csv_dir = self.base_dir / "csv files"
         self.qa_dir = self.base_dir / "qa_reports"
         self.raw_html_dir = self.base_dir / "raw_html"
         self.raw_text_dir = self.base_dir / "raw_text"
         self.archive_dir = self.base_dir / "archive"
-        self.qa_reports_dir = os.path.join(self.base_dir, "qa_reports")
-        os.makedirs(self.qa_reports_dir, exist_ok=True)
-
-        # Create directories if they don't exist
+        
+        # IMPORTANT: Create directories if they don't exist
         for directory in [self.csv_dir, self.qa_dir, self.raw_html_dir, 
                         self.raw_text_dir, self.archive_dir]:
             directory.mkdir(parents=True, exist_ok=True)
@@ -42,7 +40,7 @@ class IOPaths:
             self.csv_dir,
             self.raw_html_dir,
             self.raw_text_dir,
-            self.qa_reports_dir,
+            self.qa_dir,
             self.archive_dir,
         ]
         
@@ -148,19 +146,19 @@ class IOPaths:
     def qa_report_scraping(self) -> str:
         """Path for scraping QA report."""
         filename = f"QA_Scraping_{self.run_timestamp}.txt"
-        return os.path.join(self.qa_reports_dir, filename)
+        return os.path.join(self.qa_dir, filename)
     
     @property
     def qa_report_matching(self) -> str:
         """Path for matching QA report."""
         filename = f"QA_Matching_{self.run_timestamp}.txt"
-        return os.path.join(self.qa_reports_dir, filename)
+        return os.path.join(self.qa_dir, filename)
     
     @property
     def qa_report_pipeline(self) -> str:
         """Path for overall pipeline QA report."""
         filename = f"QA_Pipeline_{self.run_timestamp}.txt"
-        return os.path.join(self.qa_reports_dir, filename)
+        return os.path.join(self.qa_dir, filename)
     
     @property
     def authority_audit(self) -> str:
@@ -203,8 +201,8 @@ class IOPaths:
             "Low Confidence Matches": self.low_confidence_matches,
             "Enriched Wildfire (Latest)": self.enriched_wildfire_latest,
             "Enriched Wildfire (Versioned)": self.enriched_wildfire_versioned,
-            "QA Report - Scraping": self.qa_report_scraping,
-            "QA Report - Matching": self.qa_report_matching,
+            "QA Report - Scraping": self.qa_dir,
+            "QA Report - Matching": self.qa_dir,
             "QA Report - Pipeline": self.qa_report_pipeline,
             "Authority Audit": self.authority_audit,
         }
@@ -220,7 +218,7 @@ class IOPaths:
         print(f"  - CSV Files: {self.csv_dir}")
         print(f"  - Raw HTML: {self.raw_html_dir}")
         print(f"  - Raw Text: {self.raw_text_dir}")
-        print(f"  - QA Reports: {self.qa_reports_dir}")
+        print(f"  - QA Reports: {self.qa_dir}")
         print(f"  - Archive: {self.archive_dir}")
         print("="*60 + "\n")
 
