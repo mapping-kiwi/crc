@@ -53,6 +53,16 @@ python3 pipeline.py --skip-scraping
 The pipeline generates:
 - `csv files/T1_Wildfire_Evacs_Enriched.csv` - Main enriched dataset
 - `qa_reports/QA_Pipeline_[timestamp].txt` - Quality assurance report
+
+score = similarity("normalized_authority", "normalized_census_name")
+
+# Example comparisons:
+"thompson" vs "thompson"              → 100 (perfect)
+"thompson" vs "city of thompson"      → 95  (excellent)
+"wallace lake" vs "wallace lake area" → 86  (good)
+"whitefish" vs "whitefish lake"       → 80  (good/borderline)
+"nopiming" vs "winnipeg"              → 35  (poor - totally different)
+
 - `csv files/unmatched_authorities.csv` - Authorities requiring manual review
 
 ## Google Colab (or environments of similar structure)
@@ -65,6 +75,9 @@ To run in Google Colab:
 
 # Install dependencies
 !pip install -q -r requirements.txt
+
+# Run raw scrape
+!python3 -m pipeline.extract.t1_manitoba
 
 # Run pipeline
 !python3 pipeline.py
