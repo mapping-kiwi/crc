@@ -31,7 +31,42 @@ from pipeline.transform.matching import create_matching_pipeline, MatchReport
 from io_paths import IOPaths
 from pipeline.load.export import ExportManager
 from statscan_api import fetch_manitoba_census_2021
+from pipeline.transform.matching import create_matching_pipeline_with_designated_places
 
+# In transform_enrich method (around line 150), replace with:
+def transform_enrich(
+    self, 
+    wildfire_clean: pd.DataFrame, 
+    census_clean: pd.DataFrame
+) -> pd.DataFrame:
+    """
+    TRANSFORM (Part 2): Match and enrich with census + GNBC designated places.
+    """
+    self.print_header("TRANSFORM - Matching & Enriching")
+    
+    print(f"\nFuzzy matching with cutoff score: {self.match_cutoff}")
+    
+    # Run enhanced matching pipeline with GNBC designated places
+    enriched_df, match_report = create_matching_pipeline_with_designated_places(
+        wildfire_clean,
+        census_clean,
+        score_cutoff=self.match_cutoff,
+        output_dir=self.paths.csv_dir
+    )
+    
+    # Store match report
+    self.match_report = match_report
+    
+    # Check match quality
+    match_rate = match_report.get_match_rate()
+    enrichment_rate = match_report.get_enrichment_rate()
+    
+    if match_rate < 70:
+        print(f"\n⚠️ WARNING: Low match rate ({match_rate:.1f}%)")
+        print("Consider lowering --cutoff threshold")
+    
+    print(f"\n✓ TRANSFORM (Enrichment) complete: {enrichment_rate:.1f}% records enriched")
+    return enriched_df
 
 class PipelineOrchestrator:
     """Orchestrate the complete ETL pipeline with QA tracking."""

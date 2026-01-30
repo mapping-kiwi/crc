@@ -367,6 +367,32 @@ def create_matching_pipeline(
     
     return enriched_df, match_report
 
+def create_matching_pipeline_with_designated_places(
+    wildfire_df: pd.DataFrame,
+    census_df: pd.DataFrame,
+    score_cutoff: int = 80,
+    output_dir: str = "csv files"
+) -> tuple[pd.DataFrame, 'MatchReport']:
+    """Enhanced matching pipeline including GNBC designated places."""
+    from pipeline.extract.special_places import enrich_with_designated_places
+    
+    print("\n[ENHANCED MATCHING WITH GNBC DESIGNATED PLACES]")
+    
+    # Step 1: Regular census matching
+    enriched_census, report = create_matching_pipeline(
+        wildfire_df,
+        census_df,
+        score_cutoff,
+        output_dir
+    )
+    
+    # Step 2: Add GNBC designated places for unmatched
+    final_enriched = enrich_with_designated_places(
+        wildfire_df,
+        enriched_census
+    )
+    
+    return final_enriched, report
 
 if __name__ == "__main__":
     # Example usage - complete matching pipeline
