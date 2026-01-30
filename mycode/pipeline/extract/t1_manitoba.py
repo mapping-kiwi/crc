@@ -125,9 +125,11 @@ class QASignals:
 def ensure_directories():
     """Create necessary output directories if they don't exist."""
     os.makedirs("csv files", exist_ok=True)
-    os.makedirs("raw_html", exist_ok=True)
-    os.makedirs("raw_text", exist_ok=True)
     os.makedirs("qa_reports", exist_ok=True)
+    from io_paths import IOPaths
+    paths = IOPaths()
+    paths.raw_html_dir.mkdir(parents=True, exist_ok=True)
+    paths.raw_text_dir.mkdir(parents=True, exist_ok=True)
 
 
 def audit_local_authorities(df: pd.DataFrame, qa: QASignals) -> pd.Series:
@@ -201,7 +203,7 @@ def scrape_tier1_sources(urls: Dict[str, str]) -> Tuple[pd.DataFrame, str]:
             response.raise_for_status()
             
             # Save raw HTML (actual page source)
-            html_filename = f"raw_html/{name.replace(' ', '_')}_{timestamp}.html"
+            html_filename = paths.raw_html_dir / f"{name.replace(' ', '_')}_{timestamp}.html"
             with open(html_filename, "w", encoding="utf-8") as f:
                 f.write(response.text)
             print(f"  → Saved raw HTML to {html_filename}")
@@ -461,7 +463,7 @@ if __name__ == "__main__":
         print(f"\n✓ Metadata saved to: csv files/T1_Data.csv")
         
         # Save processed text
-        text_filename = f"raw_text/T1_raw_{run_timestamp}.txt"
+        text_filename = paths.raw_text_dir / f"T1_raw_{run_timestamp}.txt"
         with open(text_filename, "w", encoding="utf-8") as f:
             f.write(raw_text)
         print(f"✓ Processed text saved to: {text_filename}")
