@@ -1,0 +1,43 @@
+
+============================================================
+MATCH QUALITY REPORT
+============================================================
+
+[MATCHING STATISTICS]
+  Total unique authorities: 43
+  Successfully matched: 34
+  Unmatched: 9
+  Match rate: 79.1%
+
+[ENRICHMENT STATISTICS]
+  Total records: 80
+  Records enriched: 47
+  Enrichment rate: 58.8%
+
+[MATCH SCORE DISTRIBUTION]
+  Perfect (100): 10 (23.3%)
+  Excellent (90-99): 10 (23.3%)
+  Good (80-89): 14 (32.6%)
+  Fair (70-79): 2 (4.7%)
+  Poor (<70): 7 (16.3%)
+
+[LOW CONFIDENCE MATCHES] (14 total)
+  Top 5 matches to review:
+    - Wasagamack Anisininew Nation: score=81
+    - Wallace Lake Cottage Association: score=86
+    - Big Island Lake: score=86
+    - Incorporated Community of Cross Lake: score=86
+    - Island Lake (Stevenson Island): score=86
+
+[UNMATCHED AUTHORITIES] (9 total)
+  Authorities without census match:
+    - Whitefish (best score: 50)
+    - Minithayinikam (St. Theresa Point) (best score: 70)
+    - Red Sucker Anisininew Nation (best score: 75)
+    - Nopiming Provincial Park (best score: 48)
+    - Wekusko Falls Provincial Park (best score: 48)
+    - Whiteshell Provincial Park (best score: 51)
+    - Atikaki Provincial Park (south portion) (best score: 51)
+    - Bakers Narrow Provincial Park (best score: 50)
+    - Grass River Provincial Park (best score: 50)
+============================================================
