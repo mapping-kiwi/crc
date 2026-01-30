@@ -14,7 +14,6 @@ from datetime import datetime, UTC
 from typing import Optional
 from pathlib import Path
 
-
 class IOPaths:
     """Manage all file paths and directories for the ETL pipeline."""
     
@@ -29,7 +28,9 @@ class IOPaths:
         self.raw_html_dir = self.base_dir / "raw_html"
         self.raw_text_dir = self.base_dir / "raw_text"
         self.archive_dir = self.base_dir / "archive"
-        
+        self.qa_reports_dir = os.path.join(self.base_dir, "qa_reports")
+        os.makedirs(self.qa_reports_dir, exist_ok=True)
+
         # Create directories if they don't exist
         for directory in [self.csv_dir, self.qa_dir, self.raw_html_dir, 
                         self.raw_text_dir, self.archive_dir]:
